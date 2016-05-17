@@ -23,8 +23,7 @@ public class CreditAccountTest {
 		float withdrawalCommision = 0.02f;
 		float creditPayBackPenalty = 0.01f;
 		float credit = 1000f;
-		CreditAccount creditAccount = new CreditAccount(accountCreationTime, credit, withdrawalCommision,
-				creditPayBackPenalty);
+		CreditAccount creditAccount = new CreditAccount(accountCreationTime, credit, withdrawalCommision, creditPayBackPenalty);
 
 		// when
 		creditAccount.withdrawFunds(100);
@@ -38,8 +37,7 @@ public class CreditAccountTest {
 		float expectedPenalty = (credit - expectedBalanceWithoutPenalties) * creditPayBackPenalty;
 		float expectedBalanceWithPenalties = expectedBalanceWithoutPenalties - expectedPenalty;
 
-		assertEquals("4 months worth of fees and the penalty should have been deducted.", expectedBalanceWithPenalties,
-				actualBalance, 0);
+		assertEquals("4 months worth of fees and the penalty should have been deducted.", expectedBalanceWithPenalties, actualBalance, 0);
 	}
 
 	@Test
@@ -49,8 +47,7 @@ public class CreditAccountTest {
 		float withdrawalCommision = 0.02f;
 		float creditPayBackPenalty = 0.01f;
 		float credit = 1000f;
-		CreditAccount creditAccount = new CreditAccount(accountCreationTime, credit, withdrawalCommision,
-				creditPayBackPenalty);
+		CreditAccount creditAccount = new CreditAccount(accountCreationTime, credit, withdrawalCommision, creditPayBackPenalty);
 
 		// when
 		creditAccount.withdrawFunds(100);
@@ -63,10 +60,7 @@ public class CreditAccountTest {
 		float withdrawals = (100f + 100f * withdrawalCommision) + (200f + 200f * withdrawalCommision);
 		float expectedBalance = credit - withdrawals + 350;
 
-		assertEquals("4 months worth of fees and no penalty should have been deducted.", expectedBalance,
-				actualBalance, 0);
+		assertEquals("4 months worth of fees and no penalty should have been deducted.", expectedBalance, actualBalance, 0);
 	}
-
-	
 
 }

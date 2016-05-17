@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TestUtils {
-	
+
 	/**
 	 * @param year
 	 *            e.g 2016
@@ -19,5 +19,4 @@ public class TestUtils {
 		calendar.set(year, month + 1, day);
 		return calendar.getTime();
 	}
-
 }
