@@ -7,6 +7,7 @@ import java.util.Date;
 * @author Tudor Muresan
 */
 public class SavingsAccount extends BankAccount{
+	// TODO CODE REVIEW: You didn't add the javadoc in front of the constructor :)
 	/**
 	  * Constructor.
 	  * @param accountCreationDate The date when the account is created.
@@ -21,7 +22,7 @@ public class SavingsAccount extends BankAccount{
 	private float savingsBalance;
 	public SavingsAccount(Date accountCreationDate, float monthlyFee,float withdrawalCommision,float interestPerYear) {
 		super(accountCreationDate, monthlyFee);
-		balance = savingsBalance;
+		balance = savingsBalance;// TODO CODE REVIEW: What is the point of this line?
 		this.withdrawalCommision = withdrawalCommision;
 		this.interestPerYear = interestPerYear;
 	}
@@ -34,7 +35,7 @@ public class SavingsAccount extends BankAccount{
 	  */
 	public void withdrawFunds(float amount) throws InsufficientFundsException {
 		super.withdrawFunds(amount + amount * withdrawalCommision);
-	}
+	} // TODO CODE REVIEW: Try to add some empty spaces between the methods. The code becomes too clustered like this.
 	/** The getCalclatedBalance method will calculate the balance at a given period of time
 	 *  with monthly fees applied and interest generated every year.
 	  * @param beginComparisonDate The calculation will start from this date.
