@@ -1,0 +1,15 @@
+  Employee Name  |         Employee's Role                 |   Seniority
+Ion Pop		 |Junior Java Developer                    |	   3
+Vasile Mircea    |Junior Java Developer                    |	   2
+Filip Marian     |Senior Java Developer                    |	   5
+Vasile Tot       |Senior Java Developer                    |	   6
+Maria Pop        |QA Engineer                              |	   2
+Stan Bogdan      |QA Engineer                              |	   4
+Popescu Dumitru  |Junior dotNet Developer                  |	   3
+Laszlo Balint    |Chief Technology Officer, Project Manager|	   11
+Ioana Marculescu |Human Resources                          |	   5
+Ioana Pintilie   |Human Resources                          |	   3
+Mihaela Iliescu  |Manager Human Resources                  |	   8
+Pop Ilie         |Project Manager                          |	   6
+Toma b.          |Junior Fron End Developer                |	   3
+Raj Mykhalakachiu|Copy/Paste/CodeDuplicating/Developer     |	   4
