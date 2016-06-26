@@ -36,7 +36,6 @@ public class PollingSectionTest {
 		assertEquals(9, pollingSection.reader.getValidVotes());
 		assertEquals(4, pollingSection.reader.getInvalidVotes());
 		assertEquals("Nicolae Guta",candidateName);
-		assertEquals("CandidateElected",pollingSection.getElectionStatus());
 	}
 	
 	@Test
