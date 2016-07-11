@@ -20,6 +20,7 @@ public class VotesReader {
 	private int validVotes;
 	private int totalVotesAttempts;
 	
+	// TODO CODE REVIEW: please avoid romanian words in the param list. Your colleague might be from Norway.
 	/**
 	 * Determines if the votes are in normal string o r ASCII then reads the details from them and saves the votes into a List.
 	 * @param listaCandidati The map that contains the candidates for mayor.
@@ -60,7 +61,7 @@ public class VotesReader {
 			
 		
 		
-	
+	// TODO CODE REVIEW: This method is huge. You should consider beautifying it by extracting some methods.
 	private List<Vote> manageVotes(BufferedReader br, Map<String, Candidate> listaCandidati) throws NumberFormatException, IOException {
 		List<Vote> votesList = new ArrayList<>();
 		List<String> blackList = new ArrayList<>();

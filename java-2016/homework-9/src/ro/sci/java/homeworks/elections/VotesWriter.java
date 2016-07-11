@@ -24,6 +24,7 @@ public class VotesWriter {
 		checkIfFileExists();		
 	}
 	
+	// TODO CODE REVIEW: This method should be deleteIfExists rather than check*
 	private void checkIfFileExists(){
 		File myFile = null;
 		try{
