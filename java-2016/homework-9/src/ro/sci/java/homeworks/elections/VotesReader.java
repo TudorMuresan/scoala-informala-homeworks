@@ -22,17 +22,17 @@ public class VotesReader {
 	
 	/**
 	 * Determines if the votes are in normal string o r ASCII then reads the details from them and saves the votes into a List.
-	 * @param listaCandidati The map that contains the candidates for mayor.
+	 * @param candidatesList The map that contains the candidates for mayor.
 	 * @param candidatesVotes the string that needs to be processed.
 	 * @return The list that will hold all the valid votes that will be processed for determine the votes percentages and the chosen candidate.
 	 * 
 	 */
-	public List<Vote> readVotes(Map<String,Candidate> listaCandidati,String candidatesVotes) {
+	public List<Vote> readVotes(Map<String,Candidate> candidatesList,String candidatesVotes) {
 		
 		if(candidatesVotes !=null){
 			BufferedReader br = new BufferedReader(new StringReader(candidatesVotes));
 			try{
-				return manageVotes(br,listaCandidati);
+				return manageVotes(br,candidatesList);
 			}
 			catch(IOException e){
 				e.printStackTrace();
@@ -42,7 +42,7 @@ public class VotesReader {
 		else{
 			
 			try(BufferedReader br = new BufferedReader(new FileReader("Votes.txt"))) {
-				return manageVotes(br,listaCandidati);
+				return manageVotes(br,candidatesList);
 			}
 			catch(NumberFormatException e){
 				e.printStackTrace();
@@ -65,8 +65,7 @@ public class VotesReader {
 		List<Vote> votesList = new ArrayList<>();
 		List<String> blackList = new ArrayList<>();
 		List<String> idChecker = new ArrayList<>();
-		int invalidVotes = 0;
-		int validVotes = 0;
+		
 		int voteCount = 0;
 		String line="";
 		StringBuilder sb = new StringBuilder();
@@ -88,50 +87,68 @@ public class VotesReader {
 			else{
 				voteChunks = line.split(",");
 			}
-			
 			boolean candidateExists = false;
 			
-			
-			for (Map.Entry<String, Candidate> entry : listaCandidati.entrySet())
-			{
-				if(voteChunks.length<3){
-					System.out.println("EMPTY DETAILS FOR MAYOR");
-					break;
-				}
-				else if(entry.getValue().getCandidatName().equals(voteChunks[2])){
-					candidateExists = true;
-				}
-			}
-			if(!candidateExists){
-				System.out.println("Citizen "  + voteChunks[1] + " didnn't entered a valid candidee name! Vote invalidated!");
-				invalidVotes++;
-			}
-			else if(blackList.size()>0 && blackList.contains(voteChunks[0])){
-				System.out.println("Cetatean " + voteChunks[1] + " banat!! A incercat sa voteze pentru fiecare sticla de ulei primita!!");
-				invalidVotes++;
-			}
-			else if(idChecker.size()>0 && idChecker.contains(voteChunks[0])){
-				blackList.add(voteChunks[0]);
-				validVotes--;
-				idChecker.remove(idChecker.indexOf(voteChunks[0]));
-				invalidVotes+=2;//when second vote for same citizen occurred the previous one will also be invalidated.
-				System.out.println(voteChunks[1] + " has broken the rules and will be fined. All of his votes are invalidated.");
-				
-			}
-			else{
-				validVotes++;
-				idChecker.add(voteChunks[0]);
-				votesList.add(new Vote(voteChunks[0], voteChunks[1], voteChunks[2]));
-			}
+			validateVote(listaCandidati, votesList, blackList, idChecker, voteChunks, candidateExists);
 			voteCount++;
 		}
-		this.invalidVotes = invalidVotes;
-		this.validVotes = validVotes;
-		totalVotesAttempts = voteCount;
 		
+		totalVotesAttempts = voteCount;
 		writeReadedDetails();
 		return votesList;
 		
+	}
+
+	/**
+	 * Decides if a vote is valid or invalid. In case of a citizen votes more than once all their votes will be invalidate.
+	 * If the vote is valid,  the vote will be confirmed.
+	 * @param listaCandidati The list of candidates.
+	 * @param votesList votes list.
+	 * @param blackList A list where a citizen exists if they tried to vote more than once.
+	 * @param idChecker This will be the value based on which the system will check for duplicate votes.
+	 * @param voteChunks Splits a line of vote into three parts. Name, id and voted candidate name.
+	 * @param candidateExists If the voted candidate exists or is correctly introduced.
+	 */
+	private void validateVote(Map<String, Candidate> listaCandidati, List<Vote> votesList, List<String> blackList,
+			List<String> idChecker, String[] voteChunks, boolean candidateExists) {
+		
+		candidateExists = checkVoteFormat(listaCandidati, voteChunks, candidateExists);
+		if(!candidateExists){
+			System.out.println("Citizen "  + voteChunks[1] + " didnn't entered a valid candidee name! Vote invalidated!");
+			this.invalidVotes++;
+		}
+		else if(blackList.size()>0 && blackList.contains(voteChunks[0])){
+			System.out.println("Cetatean " + voteChunks[1] + " banat!! A incercat sa voteze pentru fiecare sticla de ulei primita!!");
+			this.invalidVotes++;
+		}
+		else if(idChecker.size()>0 && idChecker.contains(voteChunks[0])){
+			blackList.add(voteChunks[0]);
+			this.validVotes--;
+			idChecker.remove(idChecker.indexOf(voteChunks[0]));
+			this.invalidVotes+=2;//when second vote for same citizen occurred the previous one will also be invalidated.
+			System.out.println(voteChunks[1] + " has broken the rules and will be fined. All of his votes are invalidated.");
+			
+		}
+		else{
+			this.validVotes++;
+			idChecker.add(voteChunks[0]);
+			votesList.add(new Vote(voteChunks[0], voteChunks[1], voteChunks[2]));
+		}
+	}
+
+	private boolean checkVoteFormat(Map<String, Candidate> listaCandidati, String[] voteChunks,
+			boolean candidateExists) {
+		for (Map.Entry<String, Candidate> entry : listaCandidati.entrySet())
+		{
+			if(voteChunks.length<3){
+				System.out.println("EMPTY DETAILS FOR MAYOR");
+				break;
+			}
+			else if(entry.getValue().getCandidatName().equals(voteChunks[2])){
+				candidateExists = true;
+			}
+		}
+		return candidateExists;
 	}
 
 	

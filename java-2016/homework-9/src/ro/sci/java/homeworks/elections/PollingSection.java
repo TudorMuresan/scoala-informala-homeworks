@@ -55,52 +55,63 @@ public class PollingSection {
 	public String getElectionStatus() {
 		return electionStatus;
 	}
+
+	/**
+	 * The method will decide the mayor elected by this citizen.
+	 * @param mayorCandidate The name of the mayor candidate which the citizen tries to vote.
+	 * @return The details needed for voting(Citizen name, citizen id and the mayor elected).
+	 */
+	public String voteAttempt(Citizen citizen, String mayorCandidate){
+		String voteDetails = citizen.getCitizenID() + "," + citizen.getCitizenName() + "," + mayorCandidate;
+		return voteDetails;
+	}
+
 	private void generateVotingCitizens(){
 		Citizen citizenOne = new Citizen("Fodor Abc", "1982248697753");
-		writer.writeLocalFile(citizenOne.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenOne,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenTwo = new Citizen("Pop Abc", "1790606486977");
-		writer.writeLocalFile(citizenTwo.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTwo,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenThree = new Citizen("Muresan Abc", "1922206439724");
-		writer.writeLocalFile(citizenThree.voteAttempt(mayorCandidates.get("candidateOne").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenThree,mayorCandidates.get("candidateOne").getCandidatName()));
 		Citizen citizenFour = new Citizen("Vlad Abc", "1950307908653");
-		writer.writeLocalFile(citizenFour.voteAttempt(mayorCandidates.get("candidateThree").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenFour,mayorCandidates.get("candidateThree").getCandidatName()));
 		Citizen citizenFive = new Citizen("Mihaela Abc", "2911809188255");
-		writer.writeLocalFile(citizenFive.voteAttempt(mayorCandidates.get("candidateThree").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenFive,mayorCandidates.get("candidateThree").getCandidatName()));
 		Citizen citizenSix = new Citizen("Cristi Abc", "1992248697753");
-		writer.writeLocalFile(citizenSix.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenSix,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenSeven = new Citizen("Popescu Abc", "1882209237733");
-		writer.writeLocalFile(citizenSeven.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenSeven,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenEight = new Citizen("Melinda Abc", "2842246369899");
-		writer.writeLocalFile(citizenEight.voteAttempt(mayorCandidates.get("candidateThree").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenEight,mayorCandidates.get("candidateThree").getCandidatName()));
 		Citizen citizenNine = new Citizen("Mihai Abc", "1941208697766");
-		writer.writeLocalFile(citizenNine.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenNine,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenTen = new Citizen("Marius Abc", "1951101694778");
-		writer.writeLocalFile(citizenTen.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTen,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenEleven = new Citizen("Adela Abc", "2991212784999");
-		writer.writeLocalFile(citizenEleven.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenEleven,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenTwelve = new Citizen("Flaviu Abc", "1810404611811");
-		writer.writeLocalFile(citizenTwelve.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTwelve,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenThirteen = new Citizen("Septi Abc", "1780808177900");
-		writer.writeLocalFile(citizenThirteen.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenThirteen,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenFourteen = new Citizen("Liviu Abc", "1770909692753");
-		writer.writeLocalFile(citizenFourteen.voteAttempt(mayorCandidates.get("candidateTwo").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenFourteen,mayorCandidates.get("candidateTwo").getCandidatName()));
 		Citizen citizenSixteen = new Citizen("Pintea Abc", "1680514697335");
-		writer.writeLocalFile(citizenSixteen.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenSixteen,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenSeventeen = new Citizen("Adrian Abc", "1660711692155");
-		writer.writeLocalFile(citizenSeventeen.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenSeventeen,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenEighteen = new Citizen("Victor Abc", "1920303582284");
-		writer.writeLocalFile(citizenEighteen.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenEighteen,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenNineteen = new Citizen("Darius Abc", "1921401125988");
-		writer.writeLocalFile(citizenNineteen.voteAttempt(mayorCandidates.get("candidateFour").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenNineteen,mayorCandidates.get("candidateFour").getCandidatName()));
 		Citizen citizenTwenty = new Citizen("Denisa Abc", "2950801877122");
-		writer.writeLocalFile(citizenTwenty.voteAttempt(mayorCandidates.get("candidateOne").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTwenty,mayorCandidates.get("candidateOne").getCandidatName()));
 		Citizen citizenTwentyOne = new Citizen("Mayor Vandam", "2950801833122");
-		writer.writeLocalFile(citizenTwenty.voteAttempt(mayorCandidates.get("candidateOne").getCandidatName()));
-		writer.writeLocalFile(citizenTwenty.voteAttempt(mayorCandidates.get("candidateOne").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTwenty,mayorCandidates.get("candidateOne").getCandidatName()));
+		writer.writeLocalFile(voteAttempt(citizenTwenty,mayorCandidates.get("candidateOne").getCandidatName()));
 		
 		
 		
-		writer.writeLocalFile(citizenTwentyOne.voteAttempt("Piedone"));
+		writer.writeLocalFile(voteAttempt(citizenTwentyOne,"Piedone"));
 		try{
 			votesList = reader.readVotes(getMayorCandidates(),null);
 		}
@@ -203,6 +214,5 @@ public class PollingSection {
 	 */
 	private void setFinalSituation(String string) {
 		electionStatus  = string;
-		
 	}
 }

@@ -21,10 +21,10 @@ public class VotesWriter {
 	 * If exists it will delete the existing file and creates an empty one for writing in it.
 	 */
 	public VotesWriter(){
-		checkIfFileExists();		
+		deleteIfFileExists();		
 	}
 	
-	private void checkIfFileExists(){
+	private void deleteIfFileExists(){
 		File myFile = null;
 		try{
 			myFile = new File("Votes.txt");

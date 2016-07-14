@@ -40,14 +40,4 @@ public class Citizen {
 	public String getCitizenID(){
 		return citizenID;
 	}
-	
-	/**
-	 * The method will decide the mayor elected by this citizen.
-	 * @param mayorCandidate The name of the mayor candidate which the citizen tries to vote.
-	 * @return The details needed for voting(Citizen name, citizen id and the mayor elected).
-	 */
-	public String voteAttempt(String mayorCandidate){
-		String voteDetails = getCitizenID() + "," + citizenName + "," + mayorCandidate;
-		return voteDetails;
-	}
 }
