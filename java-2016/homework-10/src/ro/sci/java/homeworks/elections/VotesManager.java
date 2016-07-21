@@ -1,24 +1,53 @@
 package ro.sci.java.homeworks.elections;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * VotesReader class reads all the votes from the input, transform the votes details into original text if the details readed are encoded in ASCII.
  * @author Tudor Muresan
  *
  */
-public class VotesReader {
+public class VotesManager {
 	
 	private int invalidVotes;
 	private int validVotes;
 	private int totalVotesAttempts;
+	
+	/**
+	 *Constructor 
+	 * When instantiating this class and writing to local file it will check if the file exists. 
+	 * If exists it will delete the existing file and creates an empty one for writing in it.
+	 */
+	public VotesManager(){
+		deleteIfFileExists();		
+	}
+	
+	
+	private void deleteIfFileExists(){
+		File myFile = null;
+		try{
+			myFile = new File("Votes.txt");
+			if(myFile.exists()){
+				myFile.delete();
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/**
 	 * Determines if the votes are in normal string o r ASCII then reads the details from them and saves the votes into a List.
@@ -27,7 +56,7 @@ public class VotesReader {
 	 * @return The list that will hold all the valid votes that will be processed for determine the votes percentages and the chosen candidate.
 	 * 
 	 */
-	public List<Vote> readVotes(Map<String,Candidate> listaCandidati,String candidatesVotes) {
+	public synchronized List<Vote> readVotes(Map<String,Candidate> listaCandidati,String candidatesVotes) {
 		
 		if(candidatesVotes !=null){
 			BufferedReader br = new BufferedReader(new StringReader(candidatesVotes));
@@ -41,7 +70,7 @@ public class VotesReader {
 		}
 		else{
 			
-			try(BufferedReader br = new BufferedReader(new FileReader(PollingSection.getSharedFile()))) {
+			try(BufferedReader br = new BufferedReader(new FileReader(new File("Votes.txt")))) {
 				return manageVotes(br,listaCandidati);
 			}
 			catch(NumberFormatException e){
@@ -169,5 +198,52 @@ public class VotesReader {
 		System.out.println("Invalid Nr. of votes:  " + getInvalidVotes());
 		System.out.println("Valid Nr. of votes:  " + getValidVotes());
 		
+	}
+	
+	/**
+	 * Writes vote details into a local .txt file in ASCII.
+	 * @param voteDet The vote details that will be written in the file.
+	 * @throws IOException 
+	 * 
+	 */
+	public synchronized void writeLocalFile(String voteDet) throws IOException{	
+	    new Thread("^^votes-writer-Thread") {
+	    	FileWriter fw  = null;
+	    	BufferedWriter bw = null;
+	    	PrintWriter out = null;
+			@Override
+			public void run() {
+				try{
+					PollingSection.totalVotesAttempts++;
+					Thread.sleep((long) (5000 + Math.random()*15000));
+					synchronized (this) {
+						
+						System.out.println(currentThread().getName());
+						PollingSection.votesCounter++;
+						System.out.println("Number vote " + PollingSection.votesCounter);
+						fw = new FileWriter("Votes.txt", true);
+						bw = new BufferedWriter(fw);
+						out = new PrintWriter(bw);
+						byte[] bytes = voteDet.getBytes("US-ASCII");
+						for(int i=0;i<bytes.length;i++){
+							out.print(bytes[i]);
+							out.print("~");
+						}
+					
+					}
+					out.println("");
+				} catch(IOException e){
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finally{
+					if(out !=null){
+						out.close();
+					}
+				}
+			}
+	    }.start();
 	}
 }

@@ -32,9 +32,9 @@ public class PollingSectionTest {
 		String candidateName = pollingSection.countVotes();
 		
 		//then
-		assertEquals(13, pollingSection.reader.getTotalVotesAttempts());
-		assertEquals(9, pollingSection.reader.getValidVotes());
-		assertEquals(4, pollingSection.reader.getInvalidVotes());
+		assertEquals(13, pollingSection.votesManager.getTotalVotesAttempts());
+		assertEquals(9, pollingSection.votesManager.getValidVotes());
+		assertEquals(4, pollingSection.votesManager.getInvalidVotes());
 		assertEquals("Nicolae Guta",candidateName);
 	}
 	

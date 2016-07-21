@@ -19,7 +19,7 @@ public class VotesReaderTest {
 		sb.append("19827753,Ilie Abc,Gheorghe Funar" +"\n");
 		sb.append("19822483,Ioan Abc,Florin Salam");
 		//when
-		VotesReader votesReader = new VotesReader();
+		VotesManager votesReader = new VotesManager();
 		votesReader.readVotes(getCandidatesList(),sb.toString());
 		
 		//then
@@ -38,7 +38,7 @@ public class VotesReaderTest {
 		sb.append("1790606486977,Fodor Abc,Nicolae Guta" +"\n");
 		sb.append("1790606486977,Fodor Abc,Chuck Norris");
 		//when
-		VotesReader votesReader = new VotesReader();
+		VotesManager votesReader = new VotesManager();
 		votesReader.readVotes(getCandidatesList(),sb.toString());
 		
 		//then
@@ -60,7 +60,7 @@ public class VotesReaderTest {
 		sb.append("1790606486977,Fodor Abc,");
 		
 		//when
-		VotesReader votesReader = new VotesReader();
+		VotesManager votesReader = new VotesManager();
 		votesReader.readVotes(getCandidatesList(),sb.toString());
 		
 		//then
